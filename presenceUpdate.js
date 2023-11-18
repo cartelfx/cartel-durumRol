@@ -2,12 +2,18 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('presenceUpdate', (oldPresence, newPresence) => {
-  const durum = `münür`
-  const rolID = ``
-  if (newPresence.activities.length && newPresence.activities[0].name === durum) {
-    if (!newPresence.member.roles.cache.some(role => role.id === rolID)) {
-    
-      newPresence.member.roles.add(rolID).catch(console.log(`Kişiye rol verilemedi.`));
+  const statusxd = 'münür';
+  const roleID = '';
+
+  const hasTargetStatus = newPresence.activities.some(activity => activity.name === statusxd);
+
+  if (hasTargetStatus) {
+    if (!newPresence.member.roles.cache.some(role => role.id === roleID)) {
+      newPresence.member.roles.add(roleID).catch(console.error);
+    }
+  } else {
+    if (newPresence.member.roles.cache.some(role => role.id === roleID)) {
+      newPresence.member.roles.remove(roleID).catch(console.error);
     }
   }
 });
